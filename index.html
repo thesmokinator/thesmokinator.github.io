@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Michele Broggi — Senior Software Engineer</title>
+  <meta name="description" content="Senior Software Engineer. I build software that works for everyone." />
+  <meta property="og:title" content="Michele Broggi" />
+  <meta property="og:description" content="Senior Software Engineer. I build software that works for everyone." />
+  <meta property="og:url" content="https://michelebroggi.com" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;500&family=Plus+Jakarta+Sans:wght@300;400&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:        #F6F1E9;
+      --ink:       #1A1716;
+      --ink-soft:  #5A524E;
+      --ink-dim:   #9C9189;
+      --accent:    #C2431D;
+      --accent-bg: rgba(194, 67, 29, 0.07);
+      --border:    rgba(26, 23, 22, 0.12);
+      --mono:      'IBM Plex Mono', monospace;
+      --sans:      'Plus Jakarta Sans', system-ui, sans-serif;
+
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg:        #141210;
+        --ink:       #EDE8E0;
+        --ink-soft:  #A09890;
+        --ink-dim:   #5C5650;
+        --accent:    #E05B30;
+        --accent-bg: rgba(224, 91, 48, 0.1);
+        --border:    rgba(237, 232, 224, 0.1);
+      }
+    }
+
+    html, body {
+      height: 100%;
+      overflow: hidden;
+    }
+
+    body {
+      background-color: var(--bg);
+      color: var(--ink);
+      font-family: var(--sans);
+      font-weight: 300;
+      line-height: 1.6;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 0 24px;
+      -webkit-font-smoothing: antialiased;
+      position: relative;
+    }
+
+    /* Noise texture */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+      opacity: 0.025;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      background-size: 200px 200px;
+    }
+    @media (prefers-color-scheme: dark) { body::before { opacity: 0.04; } }
+
+    /* ── Wrapper ── */
+    .wrapper {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      max-width: 560px;
+      display: flex;
+      flex-direction: column;
+      gap: clamp(14px, 2.4vh, 28px);
+    }
+
+    /* ── Animations ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(12px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .reveal { opacity: 0; animation: fadeUp 0.55s ease forwards; }
+    .reveal:nth-child(1) { animation-delay: 0.05s; }
+    .reveal:nth-child(2) { animation-delay: 0.15s; }
+    .reveal:nth-child(3) { animation-delay: 0.25s; }
+    .reveal:nth-child(4) { animation-delay: 0.35s; }
+    .reveal:nth-child(5) { animation-delay: 0.45s; }
+    @media (prefers-reduced-motion: reduce) { .reveal { opacity: 1; animation: none; } }
+
+    /* ── Header ── */
+    .header {}
+
+    .name {
+      font-family: var(--mono);
+      font-size: clamp(1.6rem, 4.5vw, 2.6rem);
+      font-weight: 300;
+      letter-spacing: 0.18em;
+      line-height: 1.0;
+      color: var(--ink-dim);
+      margin-bottom: clamp(8px, 1.2vh, 14px);
+      text-transform: uppercase;
+    }
+
+    .name .last {
+      color: var(--ink);
+      font-weight: 500;
+      letter-spacing: 0.18em;
+    }
+
+    .role {
+      font-family: var(--mono);
+      font-size: clamp(0.62rem, 1.2vw, 0.72rem);
+      font-weight: 400;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--ink-dim);
+    }
+
+    /* ── Bio ── */
+    .bio {
+      font-size: clamp(0.88rem, 1.6vw, 1rem);
+      font-weight: 300;
+      color: var(--ink-soft);
+      line-height: 1.7;
+    }
+    .bio strong { color: var(--ink); font-weight: 400; }
+
+    /* ── Divider ── */
+    .divider {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      border: none;
+    }
+    .divider::before, .divider::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+    }
+    .divider-ornament {
+      font-size: 0.75rem;
+      color: var(--ink-dim);
+      opacity: 0.45;
+      line-height: 1;
+      font-family: var(--display);
+    }
+
+    /* ── Label ── */
+    .label {
+      font-family: var(--mono);
+      font-size: 0.62rem;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--ink-dim);
+      margin-bottom: 10px;
+    }
+
+    /* ── Stack ── */
+    .stack {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .tag {
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      color: var(--ink-soft);
+      background: transparent;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 4px 9px;
+      line-height: 1;
+      cursor: default;
+      transition: border-color 0.2s, color 0.2s, background 0.2s, transform 0.15s;
+    }
+    .tag:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+      background: var(--accent-bg);
+      transform: translateY(-1px);
+    }
+    .tag.primary {
+      color: var(--ink);
+      border-color: rgba(26, 23, 22, 0.28);
+    }
+    .tag.primary:hover {
+      color: var(--accent);
+      border-color: var(--accent);
+      background: var(--accent-bg);
+    }
+    @media (prefers-color-scheme: dark) {
+      .tag.primary { border-color: rgba(237, 232, 224, 0.28); }
+    }
+
+    /* ── Links ── */
+    .social-links { display: flex; flex-direction: column; }
+
+    .social-link {
+      display: flex;
+      align-items: center;
+      padding: clamp(9px, 1.4vh, 13px) 0;
+      border-bottom: 1px solid var(--border);
+      text-decoration: none;
+      color: var(--ink);
+      transition: color 0.2s;
+      gap: 12px;
+    }
+    .social-link:first-child { border-top: 1px solid var(--border); }
+    .social-link:hover { color: var(--accent); }
+    .social-link:hover .link-arrow { transform: translate(3px, -3px); opacity: 1; }
+    .social-link:hover .link-handle {
+      color: var(--accent);
+      transform: translateX(-4px);
+    }
+
+    .link-name {
+      font-family: var(--sans);
+      font-size: 0.92rem;
+      font-weight: 400;
+      flex-shrink: 0;
+    }
+    .link-handle {
+      font-family: var(--mono);
+      font-size: 0.68rem;
+      color: var(--ink-dim);
+      flex: 1;
+      text-align: right;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      transition: color 0.2s, transform 0.25s;
+    }
+    .link-arrow {
+      font-size: 0.78rem;
+      opacity: 0.3;
+      transition: transform 0.2s, opacity 0.2s;
+      flex-shrink: 0;
+    }
+
+    /* ── Footer ── */
+    footer {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      z-index: 1;
+      display: flex;
+      justify-content: center;
+      padding: 0 24px 20px;
+    }
+
+    .footer-inner {
+      width: 100%;
+      max-width: 560px;
+      display: flex;
+      justify-content: space-between;
+      padding-top: 16px;
+      border-top: 1px solid var(--border);
+      font-family: var(--mono);
+      font-size: 0.62rem;
+      color: var(--ink-dim);
+    }
+
+    /* ── Mobile fallback: allow scroll on very small screens ── */
+    @media (max-height: 560px) {
+      html, body { overflow: auto; height: auto; }
+      body { justify-content: flex-start; padding-top: 48px; padding-bottom: 80px; }
+      footer { position: static; padding: 24px 0 40px; }
+      .footer-inner { margin: 0 auto; }
+    }
+
+    @media (max-width: 480px) {
+      .link-handle { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="wrapper">
+
+    <header class="header reveal">
+      <h1 class="name">Michele&nbsp;<span class="last">Broggi</span></h1>
+      <p class="role">Senior Software Engineer &nbsp;·&nbsp; Open Source &nbsp;·&nbsp; AI-Driven Dev</p>
+    </header>
+
+    <p class="bio reveal">
+      I build software that works for <strong>everyone</strong> — not just the majority.
+      20+ years across mobile and full-stack. <strong>Accessibility isn't a feature</strong> — it's a foundation.
+      I work primarily with <strong>TypeScript</strong> and <strong>Python</strong>, and I write code that's tested, documented, and built to last.
+    </p>
+
+    <div class="divider reveal" role="separator" aria-hidden="true">
+      <span class="divider-ornament">✦</span>
+    </div>
+
+    <section class="reveal">
+      <p class="label">Stack</p>
+      <div class="stack" role="list" aria-label="Technologies">
+        <span class="tag primary" role="listitem">TypeScript</span>
+        <span class="tag primary" role="listitem">Python</span>
+        <span class="tag primary" role="listitem">React</span>
+        <span class="tag primary" role="listitem">Django</span>
+        <span class="tag" role="listitem">Web Components</span>
+        <span class="tag" role="listitem">Angular</span>
+        <span class="tag" role="listitem">Rust</span>
+        <span class="tag" role="listitem">Lua</span>
+        <span class="tag" role="listitem">Swift</span>
+        <span class="tag" role="listitem">C / C++</span>
+      </div>
+    </section>
+
+    <section class="reveal">
+      <p class="label">Links</p>
+      <nav class="social-links" aria-label="Social links">
+
+        <a class="social-link" href="https://github.com/thesmokinator" target="_blank" rel="noopener noreferrer">
+          <span class="link-name">GitHub</span>
+          <span class="link-handle">thesmokinator</span>
+          <span class="link-arrow" aria-hidden="true">↗</span>
+        </a>
+
+        <a class="social-link" href="https://www.linkedin.com/in/thesmokinator" target="_blank" rel="noopener noreferrer">
+          <span class="link-name">LinkedIn</span>
+          <span class="link-handle">in/thesmokinator</span>
+          <span class="link-arrow" aria-hidden="true">↗</span>
+        </a>
+
+        <a class="social-link" id="email-link" href="#" aria-label="Send email">
+          <span class="link-name">Email</span>
+          <span class="link-handle" id="email-display">•••</span>
+          <span class="link-arrow" aria-hidden="true">↗</span>
+        </a>
+
+      </nav>
+    </section>
+
+  </div>
+
+  <footer>
+    <div class="footer-inner">
+      <span>michelebroggi.com</span>
+      <span>Varese, Italy 🇮🇹</span>
+    </div>
+  </footer>
+
+  <script>
+    (function() {
+      var p = ['info', 'michelebroggi', 'com'];
+      var addr = p[0] + '\u0040' + p[1] + '\u002E' + p[2];
+      var el    = document.getElementById('email-link');
+      var label = document.getElementById('email-display');
+      el.addEventListener('mouseenter', function() { label.textContent = addr; });
+      el.addEventListener('mouseleave', function() { label.textContent = '\u2022\u2022\u2022'; });
+      el.addEventListener('focus',      function() { label.textContent = addr; });
+      el.addEventListener('blur',       function() { label.textContent = '\u2022\u2022\u2022'; });
+      el.addEventListener('click', function(e) {
+        e.preventDefault();
+        window.location.href = 'mailto:' + addr;
+      });
+    })();
+  </script>
+
+</body>
+</html>
